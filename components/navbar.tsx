@@ -35,32 +35,34 @@ export function Navbar({ currentRoute, onRouteChange }: NavbarProps) {
   if (!isMobile) {
     // Desktop view - horizontal centered menu
     return (
-      <View style={styles.menuBar}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.menuContent}
-        >
-          {menuItems.map((item) => (
-            <TouchableOpacity
-              key={item.route}
-              onPress={() => onRouteChange(item.route)}
-              style={[
-                styles.menuItem,
-                currentRoute === item.route && styles.menuItemActiveDesktop,
-              ]}
-            >
-              <Text
+      <View style={styles.desktopContainer}>
+        <View style={styles.menuBar}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.menuContent}
+          >
+            {menuItems.map((item) => (
+              <TouchableOpacity
+                key={item.route}
+                onPress={() => onRouteChange(item.route)}
                 style={[
-                  styles.menuText,
-                  currentRoute === item.route && styles.menuTextActive,
+                  styles.menuItem,
+                  currentRoute === item.route && styles.menuItemActiveDesktop,
                 ]}
               >
-                {item.label}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+                <Text
+                  style={[
+                    styles.menuText,
+                    currentRoute === item.route && styles.menuTextActive,
+                  ]}
+                >
+                  {item.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
       </View>
     );
   }
@@ -119,7 +121,13 @@ export function Navbar({ currentRoute, onRouteChange }: NavbarProps) {
 }
 
 const styles = StyleSheet.create({
+  desktopContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
   menuBar: {
+    width: "100%",
+    maxWidth: 1200,
     backgroundColor: "#f5f5f5",
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",

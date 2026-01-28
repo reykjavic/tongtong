@@ -1,6 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import "react-native-reanimated";
 
 import { Footer } from "@/components/footer";
@@ -23,12 +28,31 @@ const pageTitle: { [key: string]: string } = {
 
 export default function RootLayout() {
   const [currentRoute, setCurrentRoute] = useState("home");
+  const [isReady, setIsReady] = useState(false);
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     if (typeof document !== "undefined") {
       document.title = pageTitle[currentRoute] || "Tong Tong";
     }
   }, [currentRoute]);
+
+  useEffect(() => {
+    // Wait for window dimensions to be initialized
+    if (width > 0) {
+      setIsReady(true);
+    }
+  }, [width]);
+
+  // Don't render anything until layout dimensions are determined
+  if (!isReady) {
+    return (
+      <>
+        <StatusBar style="auto" />
+        <View style={styles.container} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -56,5 +80,8 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    alignSelf: "center",
+    width: "100%",
+    maxWidth: 1200,
   },
 });
