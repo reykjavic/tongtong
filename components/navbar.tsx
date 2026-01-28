@@ -11,11 +11,10 @@ import {
 
 const menuItems = [
   { label: "Startseite", route: "home" },
-  { label: "Über uns", route: "about" },
   { label: "Buffet-Info", route: "buffet" },
-  { label: "Kontakt / Öffnungszeiten", route: "contact" },
   { label: "Speisekarte", route: "menu" },
-  { label: "Impressum", route: "impressum" },
+  { label: "Kontakt- / Zeiten", route: "contact" },
+  { label: "Über uns", route: "about" },
 ];
 
 interface NavbarProps {
